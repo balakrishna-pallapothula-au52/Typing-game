@@ -1,0 +1,122 @@
+/* Banner section */
+.banner {
+	&__bg {
+		background-image: url(./Assets/hero-bg-nightsky.jpg);
+		position: relative;
+		width: 100%;
+		height: 100vh;
+		min-height: 100vh;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center bottom;
+		background-attachment: fixed;
+	}
+
+	&__bg:before {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background-color: rgba(0, 0, 0, 0.6);
+	}
+
+	&__text-wrapper {
+		position: absolute;
+		width: 90%;
+		top: 85%;
+		bottom: 5%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		color: #fff;
+		padding: 15px;
+		font-size: 16px;
+		text-align: center;
+		line-height: 1.5;
+
+		@media (min-width: 1440px) {
+			top: 79%;
+		}
+	}
+}
+
+.game {
+	&__title {
+	}
+
+	&__score {
+	}
+
+	&__over {
+	}
+
+	&__final-score {
+	}
+}
+
+#game-container {
+	position: relative;
+	width: 100%;
+	height: 500px; /* or whatever height you prefer for the container */
+	overflow: hidden; /* Hide words that go outside the container */
+}
+
+.word {
+	&__display {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		display: flex;
+		justify-content: center;
+		align-items: flex-start; // Words start falling from the top
+		overflow: hidden; // Words don’t overflow
+	}
+}
+
+.form-control {
+	border-radius: 8px;
+	padding: 12px;
+	font-size: 16px;
+	background-color: #fff;
+	color: #333;
+	border: 2px solid transparent;
+	transition: 0.3s;
+
+	&:focus {
+		border-color: #f5a623;
+		box-shadow: 0 0 10px rgba(245, 166, 35, 0.5);
+	}
+}
+
+.btn-primary {
+	background-color: #f5a623;
+	border: none;
+	padding: 10px 20px;
+	font-size: 16px;
+
+	&:hover {
+		background-color: #d88a15;
+	}
+}
+
+.falling-word {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 24px;
+	color: #fff;
+	animation: fall 10s linear forwards; // Will fall down in 5s
+}
+
+@keyframes fall {
+	from {
+		top: 0;
+	}
+	to {
+		top: 100%;
+	}
+}
