@@ -2,9 +2,8 @@ import words from "./words.js";
 
 // Initializing variables
 const form = document.getElementById('typing-form');
-const typedWord = document.getElementById('typed-word');
-const wordDisplay = document.getElementById('game-container');
 const inputField = document.getElementById('typed-word');
+const wordDisplay = document.getElementById('game-container');
 const startButton = document.getElementById('start-game');
 const restartButton = document.getElementById('restart-game');
 const gameOverScreen = document.getElementById('game-over');
@@ -15,20 +14,9 @@ const scoreDisplay = document.getElementById('score');
 let score = 0;
 let gameRunning = false;
 let currentWordElement = null;
-let fallInterval = null; // clear it when the game ends
+let fallInterval = null;
 
-// Form Validation (Bootstrap)
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  if (form.checkValidity()) {
-    processTypedWord();
-  } else {
-    typedWord.classList.add('is-invalid');
-  }
-  form.classList.add('was-validated');
-});
-
-// Start the game
+// Start and Restart Buttons
 startButton.addEventListener('click', startGame);
 restartButton.addEventListener('click', restartGame);
 
@@ -38,9 +26,11 @@ function startGame() {
   gameOverScreen.style.display = 'none';
   scoreDisplay.textContent = `Score: ${score}`;
   startButton.style.display = 'none';
-  restartButton.style.display = 'none'; // Hide restart button initially
+  restartButton.style.display = 'none';
   inputField.disabled = false;
-  fallingWord();
+  inputField.value = '';
+  inputField.focus();
+  FallingWord();
 }
 
 function restartGame() {
@@ -48,17 +38,19 @@ function restartGame() {
   gameRunning = true;
   scoreDisplay.textContent = `Score: ${score}`;
   gameOverScreen.style.display = 'none';
-  restartButton.style.display = 'none'; // Hide restart button until game ends
-  startButton.style.display = 'none';  // Keep start button hidden during game
+  restartButton.style.display = 'none';
+  startButton.style.display = 'none';
   inputField.disabled = false;
   inputField.value = "";
-  wordDisplay.innerHTML = ''; // Clear the word display
-  fallingWord();
+  wordDisplay.innerHTML = ''; // Clear word display
+  inputField.focus();
+  FallingWord();
 }
 
-// falling words from top
-function fallingWord() {
-  // const words = ['hello', 'world', 'javascript', 'bootstrap', 'coding'];
+// Function to  a falling word
+function FallingWord() {
+  if (!gameRunning) return;
+
   const word = words[Math.floor(Math.random() * words.length)];
   currentWordElement = document.createElement('div');
   currentWordElement.classList.add('falling-word');
@@ -80,19 +72,29 @@ function fallingWord() {
       }
     }
   }, 50);
-
-  // Check for user input and compare typed word
-  inputField.addEventListener('input', () => {
-    if (inputField.value.toLowerCase() === word.toLowerCase()) {
-      score++;
-      scoreDisplay.textContent = `Score: ${score}`;
-      clearInterval(fallInterval); // Clear falling word 
-      currentWordElement.remove(); // Remove word after typing
-      inputField.value = ''; // Clear input field
-      fallingWord(); // falling the next word
-    }
-  });
 }
+
+//validate user input with the falling word
+inputField.addEventListener('input', () => {
+  if (!currentWordElement) return; // No word on screen
+
+  const typedWord = inputField.value.trim().toLowerCase();
+  const expectedWord = currentWordElement.textContent.trim().toLowerCase();
+
+  console.log("Typed:", typedWord, "| Expected:", expectedWord);
+
+  if (typedWord === expectedWord) {
+    console.log("✅ Correct word typed:", expectedWord);
+
+    score++;
+    scoreDisplay.textContent = `Score: ${score}`;
+    clearInterval(fallInterval);
+    currentWordElement.remove(); // Remove the correct word
+    currentWordElement = null;
+    inputField.value = ''; // Clear input field
+    FallingWord(); // Start next word
+  }
+});
 
 // End the game
 function endGame() {
@@ -100,9 +102,6 @@ function endGame() {
   gameOverScreen.style.display = 'block';
   finalScoreDisplay.textContent = score;
   inputField.disabled = true;
-  restartButton.style.display = 'inline-block'; // Show restart button
-  startButton.style.display = 'none'; // Hide start button after game ends
+  restartButton.style.display = 'inline-block';
+  startButton.style.display = 'none';
 }
-
-
-
