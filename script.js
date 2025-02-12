@@ -79,7 +79,7 @@ function fallingWord() {
         endGame();
       }
     }
-  }, 20);
+  }, 50);
 
   // Check for user input and compare typed word
   inputField.addEventListener('input', () => {
