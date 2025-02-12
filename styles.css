@@ -1,6 +1,6 @@
 /* Banner section */
 .banner__bg {
-  background-image: url(./Assets/hero-bg-nightsky.jpg);
+  background-image: url(./hero-bg-nightsky.jpg);
   position: relative;
   width: 100%;
   height: 100vh;
