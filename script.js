@@ -74,7 +74,7 @@ function FallingWord() {
   }, 50);
 }
 
-//validate user input with the falling word
+// Listen for user input and validate against the falling word
 inputField.addEventListener('input', () => {
   if (!currentWordElement) return; // No word on screen
 
