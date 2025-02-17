@@ -1,3 +1,4 @@
+
 import words from "./words.js";
 
 // Initializing variables
@@ -101,7 +102,7 @@ form.addEventListener('submit', (event) => {
     FallingWord(); // Start next word
   } else {
     console.log("❌ Incorrect word typed:", typedWord);
-    
+
     // If the word is incorrect, just remove it after "Enter" is pressed
     if (currentWordElement) {
       currentWordElement.remove(); // Remove the falling word immediately
@@ -127,3 +128,4 @@ function endGame() {
   restartButton.style.display = 'inline-block';
   startButton.style.display = 'none';
 }
+
