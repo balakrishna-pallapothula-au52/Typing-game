@@ -1,4 +1,3 @@
-/* Banner section */
 .banner {
 	&__bg {
 		background-image: url(./hero-bg-nightsky.jpg);
@@ -25,7 +24,7 @@
 	&__text-wrapper {
 		position: absolute;
 		width: 90%;
-		top: 85%;
+		top: 82%;
 		bottom: 5%;
 		left: 50%;
 		transform: translate(-50%, -50%);
@@ -34,18 +33,51 @@
 		font-size: 16px;
 		text-align: center;
 		line-height: 1.5;
+		box-shadow: 4px 4px 10px rgba(128, 128, 128, 0.3);
+
+		@media (min-width: 1024px) {
+			top: 79%;
+			width: 50%;
+		}
 
 		@media (min-width: 1440px) {
-			top: 79%;
+			top: 68%;
+			width: 50%;
 		}
 	}
 }
 
 .game {
+	font-family: 'Ubuntu', sans-serif;
+
+	&__section {
+		border: 2px solid grey;
+		padding: 16px 12px;
+		border-radius: 8px;
+
+		@media (min-width: 1024px) {
+			padding: 20px 16px;
+		}
+	}
+
 	&__title {
+		font-size: 21px;
+		font-weight: 700;
+		color: #ffd700cc;
+
+		@media (min-width: 1024px) {
+			font-size: 30px;
+		}
 	}
 
 	&__score {
+		font-size: 18px;
+		margin-bottom: 10px;
+		color: #ffd700;
+
+		@media (min-width: 1024px) {
+			font-size: 24px;
+		}
 	}
 
 	&__over {
@@ -58,7 +90,7 @@
 #game-container {
 	position: relative;
 	width: 100%;
-	height: 500px; /* or whatever height you prefer for the container */
+	height: 100vh; /* or whatever height you prefer for the container */
 	overflow: hidden; /* Hide words that go outside the container */
 }
 
@@ -79,11 +111,12 @@
 .form-control {
 	border-radius: 8px;
 	padding: 12px;
-	font-size: 16px;
-	background-color: #fff;
-	color: #333;
-	border: 2px solid transparent;
+	font-size: 20px;
+	background-color: #222;
+	color: #fff;
+	border: 2px solid #ffd700;
 	transition: 0.3s;
+	text-align: center;
 
 	&:focus {
 		border-color: #f5a623;
@@ -91,14 +124,20 @@
 	}
 }
 
-.btn-primary {
-	background-color: #f5a623;
-	border: none;
-	padding: 10px 20px;
-	font-size: 16px;
+.btn {
+	&-primary {
+		background-color: #f5a623;
+		border: none;
+		padding: 10px 20px;
+		font-size: 16px;
 
-	&:hover {
-		background-color: #d88a15;
+		&:hover {
+			background-color: #d88a15;
+		}
+	}
+
+	&-danger {
+		margin-bottom: 10px;
 	}
 }
 
@@ -107,7 +146,8 @@
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
-	font-size: 24px;
+	font-size: 32px;
+
 	color: #fff;
 	animation: fall 10s linear forwards; // Will fall down in 5s
 }
