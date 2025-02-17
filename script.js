@@ -1,3 +1,4 @@
+
 import words from "./words.js";
 
 // Initializing variables
@@ -20,6 +21,7 @@ let fallInterval = null;
 startButton.addEventListener('click', startGame);
 restartButton.addEventListener('click', restartGame);
 
+// Start the game
 function startGame() {
   score = 0;
   gameRunning = true;
@@ -33,6 +35,7 @@ function startGame() {
   FallingWord();
 }
 
+// Restart the game
 function restartGame() {
   score = 0;
   gameRunning = true;
@@ -47,7 +50,7 @@ function restartGame() {
   FallingWord();
 }
 
-// Function to  a falling word
+// Function to create and animate a falling word
 function FallingWord() {
   if (!gameRunning) return;
 
@@ -74,17 +77,21 @@ function FallingWord() {
   }, 50);
 }
 
-// Listen for user input and validate against the falling word
-inputField.addEventListener('input', () => {
-  if (!currentWordElement) return; // No word on screen
+// Listen for form submission and validate the typed word when Enter is pressed
+form.addEventListener('submit', (event) => {
+  event.preventDefault();  // Prevent page reload on form submission
 
   const typedWord = inputField.value.trim().toLowerCase();
-  const expectedWord = currentWordElement.textContent.trim().toLowerCase();
+  if (!typedWord) {
+    // If input is empty, show validation message (optional)
+    inputField.setCustomValidity('Please type a word');
+    inputField.reportValidity();
+    return;
+  }
 
-  console.log("Typed:", typedWord, "| Expected:", expectedWord);
-
-  if (typedWord === expectedWord) {
-    console.log("✅ Correct word typed:", expectedWord);
+  // Check if typed word matches the falling word
+  if (currentWordElement && typedWord === currentWordElement.textContent.trim().toLowerCase()) {
+    console.log("✅ Correct word typed:", typedWord);
 
     score++;
     scoreDisplay.textContent = `Score: ${score}`;
@@ -93,7 +100,17 @@ inputField.addEventListener('input', () => {
     currentWordElement = null;
     inputField.value = ''; // Clear input field
     FallingWord(); // Start next word
+  } else {
+    console.log("❌ Incorrect word typed:", typedWord);
+
+    // End the game if the word is incorrect
+    endGame();
   }
+});
+
+// Optional: Add an event listener for input field focus to reset custom validation on each input change
+inputField.addEventListener('input', () => {
+  inputField.setCustomValidity(''); // Reset custom validity when the user types
 });
 
 // End the game
