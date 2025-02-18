@@ -38,13 +38,6 @@
     width: 50%;
   }
 }
-@media (min-width: 1440px) {
-  .banner__text-wrapper {
-    top: 68%;
-    width: 50%;
-  }
-}
-
 .game {
   font-family: "Ubuntu", sans-serif;
 }
