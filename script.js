@@ -129,3 +129,11 @@ function endGame() {
   startButton.style.display = 'none';
 }
 
+
+
+
+
+
+
+
+
